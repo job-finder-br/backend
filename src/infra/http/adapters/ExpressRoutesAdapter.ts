@@ -10,6 +10,7 @@ class ExpressAdapter {
         body: request.body,
         params: request.params,
         query: request.query,
+        file: request.file,
       };
 
       const httpResponse = await CtxController(requestData);
