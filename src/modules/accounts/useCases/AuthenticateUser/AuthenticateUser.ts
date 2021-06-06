@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { jwt_secrets } from '@config/auth';
 import { ICreateUserDTO } from '@modules/accounts/domain';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
 
@@ -43,21 +44,14 @@ class AuthenticateUser {
     }
 
     const { expiresIn, secret } = jwt_secrets;
-    const { description, is_admin, name, phone_number } = user;
 
-    const token = sign({ is_admin }, secret, {
+    const token = sign({}, secret, {
       subject: user.id,
       expiresIn,
     });
 
     return {
-      user: {
-        user_id: user.id,
-        name,
-        email,
-        description,
-        phone_number,
-      },
+      user: UserMapper.render(user),
       token,
     } as IAuthResponse;
   }

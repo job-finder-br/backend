@@ -1,4 +1,6 @@
-import { ICreateUserDTO, User } from '@modules/accounts/domain';
+import { ICreateUserDTO } from '@modules/accounts/dtos';
+
+import { User } from '../domain';
 
 export interface IUsersRepository {
   exists(email: string): Promise<boolean>;
