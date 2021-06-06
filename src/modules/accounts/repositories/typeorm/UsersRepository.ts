@@ -23,7 +23,7 @@ class UsersRepository implements IUsersRepository {
     return !!user;
   }
 
-  async findByUserName(username: string): Promise<User> {
+  async findByUserName(username: string): Promise<User | undefined> {
     const user = await this.repository.findOne({ username });
 
     return user;
@@ -35,13 +35,13 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<User | undefined> {
     const user = await this.repository.findOne(id);
 
     return user;
   }
 
-  async findByPhone(phone_number: string): Promise<User> {
+  async findByPhone(phone_number: string): Promise<User | undefined> {
     const user = await this.repository.findOne({ phone_number });
 
     return user;

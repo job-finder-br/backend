@@ -25,11 +25,11 @@ class JobsWorksRepository implements IJobsWorkRepository {
     return this.repository.find();
   }
 
-  async findById(id: string): Promise<JobWork> {
+  async findById(id: string): Promise<JobWork | undefined> {
     return this.repository.findOne(id);
   }
 
-  async findByEmail(email: string): Promise<JobWork> {
+  async findByEmail(email: string): Promise<JobWork | undefined> {
     return this.repository.findOne({ email });
   }
 
@@ -39,11 +39,11 @@ class JobsWorksRepository implements IJobsWorkRepository {
     await this.repository.save(job);
   }
 
-  async findByTitle(title: string): Promise<JobWork> {
+  async findByTitle(title: string): Promise<JobWork | undefined> {
     return this.repository.findOne({ title });
   }
 
-  async findByPhone(phone_number: string): Promise<JobWork> {
+  async findByPhone(phone_number: string): Promise<JobWork | undefined> {
     return this.repository.findOne({ phone_number });
   }
 }

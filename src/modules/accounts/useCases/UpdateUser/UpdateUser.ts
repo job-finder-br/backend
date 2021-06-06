@@ -26,10 +26,13 @@ class UpdateUser {
       throw new Error('User does not exists!');
     }
 
-    const category = await this.categoriesRepository.findById(data.category_id);
+    let category = null;
+    if (data.category_id) {
+      category = await this.categoriesRepository.findById(data.category_id);
 
-    if (!category) {
-      throw new Error('Category does not exists!');
+      if (!category) {
+        throw new Error('Category does not exists!');
+      }
     }
 
     const emailExists = await this.usersRepository.findByEmail(data.email);
@@ -54,9 +57,9 @@ class UpdateUser {
       throw new Error('User user name already registed!');
     }
 
-    user.category = category;
-
     Object.assign(user, data);
+
+    user.category = category;
 
     await this.usersRepository.save(user);
   }

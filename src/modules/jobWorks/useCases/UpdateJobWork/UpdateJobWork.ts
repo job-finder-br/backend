@@ -33,10 +33,14 @@ class UpdateJobWork {
       throw new Error('This job listing cannot be updated by this user!');
     }
 
-    const category = await this.categoriesRepository.findById(data.category_id);
+    let category = null;
 
-    if (!category) {
-      throw new Error('Category does not exists!');
+    if (data.category_id) {
+      category = await this.categoriesRepository.findById(data.category_id);
+
+      if (!category) {
+        throw new Error('Category does not exists!');
+      }
     }
 
     const titleExists = await this.jobsWorkRepository.findByTitle(data.title);

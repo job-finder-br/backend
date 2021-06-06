@@ -11,7 +11,7 @@ class CategoryRepository implements ICategoryRepository {
     this.repository = getRepository(Category);
   }
 
-  async findById(id: string): Promise<Category> {
+  async findById(id: string): Promise<Category | undefined> {
     return this.repository.findOne(id);
   }
 
