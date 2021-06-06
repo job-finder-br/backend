@@ -15,6 +15,7 @@ export default {
   database: process.env.POSTGRES_DB,
   entities: ['./src/modules/**/domain/**/*.ts'],
   migrations: ['./src/infra/database/**/migrations/*.ts'],
+  seeds: ['./src/infra/database/**/seeds/*.ts'],
   cli: {
     migrationsDir: './src/infra/database/typeorm/migrations',
   },
