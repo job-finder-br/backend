@@ -49,14 +49,6 @@ class UpdateUser {
       throw new Error('User phone number already registed!');
     }
 
-    const userNameExists = await this.usersRepository.findByUserName(
-      data.username,
-    );
-
-    if (userNameExists) {
-      throw new Error('User user name already registed!');
-    }
-
     Object.assign(user, data);
 
     user.category = category;

@@ -30,7 +30,7 @@ class AuthenticateUser {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('Username or password incorrect!');
+      throw new Error('Email or password incorrect!');
     }
 
     const passwordMatch = await this.hashProvider.compareHash(
@@ -39,11 +39,11 @@ class AuthenticateUser {
     );
 
     if (!passwordMatch) {
-      throw new Error('Username or password incorrect!');
+      throw new Error('Email or password incorrect!');
     }
 
     const { expiresIn, secret } = jwt_secrets;
-    const { description, is_admin, username, name, phone_number } = user;
+    const { description, is_admin, name, phone_number } = user;
 
     const token = sign({ is_admin }, secret, {
       subject: user.id,
@@ -55,7 +55,6 @@ class AuthenticateUser {
         user_id: user.id,
         name,
         email,
-        username,
         description,
         phone_number,
       },

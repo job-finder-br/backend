@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { ICreateUserDTO } from '@modules/accounts/domain';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
+import { RegisterAddress } from '@modules/addresses/useCases/RegisterAddress';
 import { ICategoryRepository } from '@modules/jobWorks/repositories';
 
 @injectable()
@@ -16,6 +17,8 @@ class RegisterUser {
 
     @inject('CategoryRepository')
     private categoriesRepository: ICategoryRepository,
+
+    private RegisterAdress: RegisterAddress,
   ) {}
 
   async execute({
@@ -24,12 +27,12 @@ class RegisterUser {
     name,
     password,
     phone_number,
-    username,
     category_id,
+    city_name,
+    state_name,
   }: ICreateUserDTO): Promise<void> {
     const userExistsPromises = await Promise.all([
       this.usersRepository.findByEmail(email),
-      this.usersRepository.findByUserName(username),
       this.usersRepository.findByPhone(phone_number),
     ]);
 
@@ -51,14 +54,19 @@ class RegisterUser {
       }
     }
 
+    const city = await this.RegisterAdress.execute({
+      city_name,
+      state_name,
+    });
+
     await this.usersRepository.create({
       description,
       email,
       name,
       password: passwordHashed,
       phone_number,
-      username,
       category,
+      city,
     });
   }
 }

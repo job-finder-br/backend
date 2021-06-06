@@ -19,9 +19,6 @@ class User extends BaseEntity {
   name: string;
 
   @Column({ unique: true })
-  username: string;
-
-  @Column({ unique: true })
   email: string;
 
   @Column()
