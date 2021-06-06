@@ -50,7 +50,6 @@ class RegisterJobWork {
     }
 
     const user = await this.usersRepository.findById(user_id);
-
     if (!user) {
       throw new Error('User does not exists!');
     }

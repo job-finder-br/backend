@@ -10,7 +10,10 @@ class RegisterJobWorkController implements BaseController {
     const registerJobWork = container.resolve(RegisterJobWork);
 
     try {
-      await registerJobWork.execute(request.body);
+      await registerJobWork.execute({
+        ...request.body,
+        user_id: request.user.id,
+      });
 
       return created();
     } catch (error) {
