@@ -47,10 +47,11 @@ class User extends BaseEntity {
 
   // Relatioships
 
-  @OneToMany(() => JobWork, jobwork => jobwork.user)
+  @OneToMany(() => JobWork, jobwork => jobwork.user, { eager: true })
   jobs: JobWork[];
 
   @ManyToOne(() => City, city => city.users, {
+    eager: true,
     nullable: true,
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
@@ -72,7 +73,6 @@ class User extends BaseEntity {
   favorites_jobs: JobWork[];
 
   @ManyToOne(() => Category, category => category.users, {
-    eager: true,
     nullable: true,
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',

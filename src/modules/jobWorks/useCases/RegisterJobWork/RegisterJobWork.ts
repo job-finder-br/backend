@@ -2,7 +2,10 @@ import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { ICreateJobsWorks } from '@modules/jobWorks/domain';
-import { IJobsWorkRepository } from '@modules/jobWorks/repositories';
+import {
+  ICategoryRepository,
+  IJobsWorkRepository,
+} from '@modules/jobWorks/repositories';
 
 @injectable()
 class RegisterJobWork {
@@ -12,6 +15,9 @@ class RegisterJobWork {
 
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('CategoryRepository')
+    private categoriesRepository: ICategoryRepository,
   ) {}
 
   async execute({
@@ -23,6 +29,7 @@ class RegisterJobWork {
     type,
     represents,
     user_id,
+    category_id,
   }: ICreateJobsWorks): Promise<void> {
     const titleExists = await this.jobsWorkRepository.findByTitle(title);
 
@@ -48,6 +55,12 @@ class RegisterJobWork {
       throw new Error('User does not exists!');
     }
 
+    const category = await this.categoriesRepository.findById(category_id);
+
+    if (!category) {
+      throw new Error('Category does not exists!');
+    }
+
     await this.jobsWorkRepository.create({
       description,
       email,
@@ -57,6 +70,7 @@ class RegisterJobWork {
       title,
       type,
       user,
+      category,
     });
   }
 }
