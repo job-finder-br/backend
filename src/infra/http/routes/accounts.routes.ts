@@ -6,6 +6,7 @@ import { ExpressAdapter } from '@infra/http/adapters';
 
 import {
   changeUserPasswordController,
+  deleteAccountController,
   listUserController,
   registerUserController,
   showUserController,
@@ -26,6 +27,11 @@ accountsRouter.get('/', ExpressAdapter.create(listUserController.handle));
 accountsRouter.get('/:id', ExpressAdapter.create(showUserController.handle));
 
 accountsRouter.put('/', ExpressAdapter.create(updateUserController.handle));
+
+accountsRouter.delete(
+  '/',
+  ExpressAdapter.create(deleteAccountController.handle),
+);
 
 accountsRouter.patch(
   '/avatar',

@@ -1,4 +1,5 @@
 import { ChangeUserPasswordController } from '@modules/accounts/useCases/ChangeUserPassword';
+import { DeleteAccountController } from '@modules/accounts/useCases/DeleteAccount';
 import { ListUserController } from '@modules/accounts/useCases/ListUser';
 import { RegisterUserController } from '@modules/accounts/useCases/RegisterUser';
 import { ShowUserController } from '@modules/accounts/useCases/ShowUser/ShowUserController';
@@ -11,6 +12,7 @@ const showUserController = new ShowUserController();
 const updateUserController = new UpdateUserController();
 const changeUserPasswordController = new ChangeUserPasswordController();
 const updateUserAvatarController = new UpdateUserAvatarController();
+const deleteAccountController = new DeleteAccountController();
 
 export {
   registerUserController,
@@ -19,4 +21,5 @@ export {
   updateUserController,
   changeUserPasswordController,
   updateUserAvatarController,
+  deleteAccountController,
 };

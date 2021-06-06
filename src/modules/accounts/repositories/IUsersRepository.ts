@@ -9,5 +9,6 @@ export interface IUsersRepository {
   findByPhone(phone: string): Promise<User | undefined>;
   save(data: User): Promise<void>;
   create(data: ICreateUserDTO): Promise<void>;
+  delete(id: string): Promise<void>;
   list(): Promise<User[]>;
 }

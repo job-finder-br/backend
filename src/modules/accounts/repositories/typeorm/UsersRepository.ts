@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { getRepository, Repository } from 'typeorm';
 
-import { ICreateUserDTO, User } from '../../domain';
+import { ICreateUserDTO } from '@modules/accounts/dtos';
+
+import { User } from '../../domain';
 import { IUsersRepository } from '../IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
@@ -9,6 +11,10 @@ class UsersRepository implements IUsersRepository {
 
   constructor() {
     this.repository = getRepository(User);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.softDelete(id);
   }
 
   async list(): Promise<User[]> {
