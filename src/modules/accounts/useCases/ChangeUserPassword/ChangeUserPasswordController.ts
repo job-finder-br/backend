@@ -11,7 +11,7 @@ class ChangeUserPasswordController implements BaseController {
     try {
       await changeUserPassword.execute({
         data: request.body,
-        user_id: request.params.id,
+        user_id: request.user.id,
       });
 
       return ok();

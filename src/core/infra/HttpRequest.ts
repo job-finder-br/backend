@@ -5,4 +5,5 @@ export type HttpRequest = {
   params: any;
   query: any;
   file: any;
+  user: any;
 };

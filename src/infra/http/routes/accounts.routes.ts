@@ -28,14 +28,14 @@ accountsRouter.get('/:id', ExpressAdapter.create(showUserController.handle));
 accountsRouter.put('/:id', ExpressAdapter.create(updateUserController.handle));
 
 accountsRouter.patch(
-  '/:id',
-  ExpressAdapter.create(changeUserPasswordController.handle),
+  '/avatar',
+  uploadAvatar.single('avatar'),
+  ExpressAdapter.create(updateUserAvatarController.handle),
 );
 
 accountsRouter.patch(
-  '/avatar/:id',
-  uploadAvatar.single('avatar'),
-  ExpressAdapter.create(updateUserAvatarController.handle),
+  '/password',
+  ExpressAdapter.create(changeUserPasswordController.handle),
 );
 
 export { accountsRouter };
