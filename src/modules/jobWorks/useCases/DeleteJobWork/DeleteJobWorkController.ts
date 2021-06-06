@@ -12,7 +12,7 @@ class DeleteJobWorkController implements BaseController {
     try {
       await deleteJobWork.execute({
         job_id: request.params.id,
-        data: request.body,
+        user_id: request.user.id,
       });
 
       return created();

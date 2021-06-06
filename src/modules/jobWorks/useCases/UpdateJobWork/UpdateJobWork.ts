@@ -60,9 +60,9 @@ class UpdateJobWork {
       throw new Error('Job Work Email Already Exists!');
     }
 
-    job.category = category;
-
     Object.assign(job, data);
+
+    job.category = category;
 
     await this.jobsWorkRepository.save(job);
   }
