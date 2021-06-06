@@ -11,6 +11,12 @@ class JobsWorksRepository implements IJobsWorkRepository {
     this.repository = getRepository(JobWork);
   }
 
+  async remove(job: JobWork): Promise<void> {
+    await this.repository.save(job);
+
+    await this.repository.delete(job.id);
+  }
+
   async save(data: JobWork): Promise<void> {
     await this.repository.save(data);
   }

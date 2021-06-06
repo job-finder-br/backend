@@ -8,6 +8,7 @@ interface IJobsWorkRepository {
   findById(id: string): Promise<JobWork>;
   list(): Promise<JobWork[]>;
   save(data: JobWork): Promise<void>;
+  remove(job: JobWork): Promise<void>;
 }
 
 export { IJobsWorkRepository };

@@ -31,12 +31,6 @@ class UpdateJobWork {
       throw new Error('This job listing cannot be updated by this user!');
     }
 
-    const user = await this.usersRepository.findById(data.user_id);
-
-    if (!user) {
-      throw new Error('Error to find user');
-    }
-
     const titleExists = await this.jobsWorkRepository.findByTitle(data.title);
 
     if (titleExists) {

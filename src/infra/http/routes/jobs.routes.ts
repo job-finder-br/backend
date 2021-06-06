@@ -8,6 +8,7 @@ import {
   listJobsWorkController,
   removeFavoriteJobController,
   showJobWorkController,
+  deleteJobWorkController,
   updateJobWorkController,
 } from '../factories/JobsWorkControllersFactory';
 import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated';
@@ -22,9 +23,12 @@ jobsRouter.post('/', ExpressAdapter.create(registerJobWorkController.handle));
 
 jobsRouter.put('/:id', ExpressAdapter.create(updateJobWorkController.handle));
 
-jobsRouter.delete('/', ExpressAdapter.create(registerJobWorkController.handle));
-
 jobsRouter.get('/:id', ExpressAdapter.create(showJobWorkController.handle));
+
+jobsRouter.delete(
+  '/:id',
+  ExpressAdapter.create(deleteJobWorkController.handle),
+);
 
 jobsRouter.post(
   '/like/:id',

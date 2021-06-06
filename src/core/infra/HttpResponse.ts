@@ -47,6 +47,13 @@ export const notFound = (error: Error): HttpResponse => ({
   },
 });
 
+export const conflict = (error: Error): HttpResponse => ({
+  statusCode: 409,
+  body: {
+    error: error.message,
+  },
+});
+
 export const tooMany = (error: Error): HttpResponse => ({
   statusCode: 429,
   body: {

@@ -3,16 +3,16 @@ import { container } from 'tsyringe';
 import { HttpResponse, BaseController, HttpRequest } from '@core/.';
 import { created, conflict } from '@core/infra/HttpResponse';
 
-import { UpdateJobWork } from './UpdateJobWork';
+import { DeleteJobWork } from './DeleteJobWork';
 
-class UpdateJobWorkController implements BaseController {
+class DeleteJobWorkController implements BaseController {
   async handle(request: HttpRequest): Promise<HttpResponse> {
-    const updateJobWork = container.resolve(UpdateJobWork);
+    const deleteJobWork = container.resolve(DeleteJobWork);
 
     try {
-      await updateJobWork.execute({
-        data: request.body,
+      await deleteJobWork.execute({
         job_id: request.params.id,
+        data: request.body,
       });
 
       return created();
@@ -22,4 +22,4 @@ class UpdateJobWorkController implements BaseController {
   }
 }
 
-export { UpdateJobWorkController };
+export { DeleteJobWorkController };
