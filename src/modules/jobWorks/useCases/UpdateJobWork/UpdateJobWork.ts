@@ -2,7 +2,10 @@ import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { ICreateJobsWorks } from '@modules/jobWorks/domain';
-import { IJobsWorkRepository } from '@modules/jobWorks/repositories';
+import {
+  ICategoryRepository,
+  IJobsWorkRepository,
+} from '@modules/jobWorks/repositories';
 
 type IUpdateRequest = {
   job_id: string;
@@ -15,8 +18,8 @@ class UpdateJobWork {
     @inject('JobsWorkRepository')
     private jobsWorkRepository: IJobsWorkRepository,
 
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject('CategoryRepository')
+    private categoriesRepository: ICategoryRepository,
   ) {}
 
   async execute({ job_id, data }: IUpdateRequest): Promise<void> {
@@ -29,6 +32,12 @@ class UpdateJobWork {
 
     if (job.fk_user_id !== data.user_id) {
       throw new Error('This job listing cannot be updated by this user!');
+    }
+
+    const category = await this.categoriesRepository.findById(data.category_id);
+
+    if (!category) {
+      throw new Error('Category does not exists!');
     }
 
     const titleExists = await this.jobsWorkRepository.findByTitle(data.title);
@@ -50,6 +59,8 @@ class UpdateJobWork {
     if (emailExists) {
       throw new Error('Job Work Email Already Exists!');
     }
+
+    job.category = category;
 
     Object.assign(job, data);
 
