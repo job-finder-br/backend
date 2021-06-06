@@ -1,5 +1,5 @@
 ### ER Model
-![ER-model](ER.jpeg)
+![ER-model](ER.png)
 
 ### Inicializando
 
