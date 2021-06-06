@@ -28,6 +28,7 @@ class DeleteJobWork {
 
     job.user = null;
     job.users_favorites = null;
+    job.category = null;
 
     await this.jobsWorkRepository.remove(job);
   }
