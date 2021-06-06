@@ -23,7 +23,6 @@ class UpdateJobWork {
   ) {}
 
   async execute({ job_id, user_id, data }: IUpdateRequest): Promise<void> {
-    console.log({ job_id, data });
     const job = await this.jobsWorkRepository.findById(job_id);
 
     if (!job) {
