@@ -41,6 +41,7 @@ class JobWork extends BaseEntity {
   user: User;
 
   @ManyToOne(() => Category, category => category.jobs, {
+    eager: true,
     nullable: true,
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
