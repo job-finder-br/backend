@@ -8,7 +8,7 @@ const POSTGRES_PORT =
 export default {
   type: 'postgres',
   host: 'localhost',
-  logging: true,
+  logging: false,
   port: POSTGRES_PORT,
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,

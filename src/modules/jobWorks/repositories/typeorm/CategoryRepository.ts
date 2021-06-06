@@ -11,11 +11,11 @@ class CategoryRepository implements ICategoryRepository {
     this.repository = getRepository(Category);
   }
 
-  findById(id: string): Promise<Category> {
+  async findById(id: string): Promise<Category> {
     return this.repository.findOne(id);
   }
 
-  list(): Promise<Category[]> {
+  async list(): Promise<Category[]> {
     return this.repository.find();
   }
 }

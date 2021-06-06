@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUsersRepository } from '@modules/accounts/repositories';
 import { ICreateJobsWorks } from '@modules/jobWorks/domain';
 import {
   ICategoryRepository,

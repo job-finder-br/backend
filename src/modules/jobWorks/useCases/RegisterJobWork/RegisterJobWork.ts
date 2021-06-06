@@ -55,10 +55,13 @@ class RegisterJobWork {
       throw new Error('User does not exists!');
     }
 
-    const category = await this.categoriesRepository.findById(category_id);
+    const category = null;
+    if (category_id) {
+      await this.categoriesRepository.findById(category_id);
 
-    if (!category) {
-      throw new Error('Category does not exists!');
+      if (!category) {
+        throw new Error('Category does not exists!');
+      }
     }
 
     await this.jobsWorkRepository.create({

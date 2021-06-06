@@ -47,7 +47,7 @@ class JobWork extends BaseEntity {
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'fk_category_id' })
-  category: JobWork;
+  category: Category;
 
   @ManyToOne(() => City, city => city.jobs, {
     eager: true,

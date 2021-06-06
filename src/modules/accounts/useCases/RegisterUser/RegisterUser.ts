@@ -41,10 +41,14 @@ class RegisterUser {
 
     const passwordHashed = await this.hashProvider.generateHash(password);
 
-    const category = await this.categoriesRepository.findById(category_id);
+    let category = null;
 
-    if (!category) {
-      throw new Error('Category doe not exists!');
+    if (category_id) {
+      category = await this.categoriesRepository.findById(category_id);
+
+      if (!category) {
+        throw new Error('Category doe not exists!');
+      }
     }
 
     await this.usersRepository.create({
