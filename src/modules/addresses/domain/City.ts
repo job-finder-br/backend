@@ -11,9 +11,6 @@ class City extends BaseEntity {
   @Column({ unique: true })
   name: string;
 
-  @Column({ unique: true })
-  abbrev_name: string;
-
   @ManyToOne(() => State, state => state.cities, {
     eager: true,
     nullable: true,

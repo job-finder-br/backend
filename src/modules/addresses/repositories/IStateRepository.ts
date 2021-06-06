@@ -1,11 +1,11 @@
-import { ICreateAddressDTO, State } from '../domain';
+import { State } from '../domain';
 
 interface IStateRepository {
-  create(data: ICreateAddressDTO): Promise<State>;
-  findByName(name: string): Promise<State>;
-  findByAbbrev(abbrev: string): Promise<State>;
-  findById(id: string): Promise<State>;
+  create(name: string): Promise<State | undefined>;
+  findByName(name: string): Promise<State | undefined>;
+  findById(id: string): Promise<State | undefined>;
   list(): Promise<State[]>;
+  save(data: State): Promise<void>;
 }
 
 export { IStateRepository };

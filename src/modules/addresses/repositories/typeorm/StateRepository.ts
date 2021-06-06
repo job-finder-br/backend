@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { State, ICreateAddressDTO } from '@modules/addresses/domain';
+import { State } from '@modules/addresses/domain';
 
 import { IStateRepository } from '../IStateRepository';
 
@@ -11,8 +11,12 @@ class StateRepository implements IStateRepository {
     this.repository = getRepository(State);
   }
 
-  async create({ abbrev_name, name }: ICreateAddressDTO): Promise<State> {
-    const state = this.repository.create({ abbrev_name, name });
+  async save(data: State): Promise<void> {
+    await this.repository.save(data);
+  }
+
+  async create(name: string): Promise<State> {
+    const state = this.repository.create({ name });
 
     await this.repository.save(state);
 
@@ -20,27 +24,15 @@ class StateRepository implements IStateRepository {
   }
 
   async findByName(name: string): Promise<State> {
-    const state = await this.repository.findOne({ name });
-
-    return state;
-  }
-
-  async findByAbbrev(abbrev: string): Promise<State> {
-    const state = await this.repository.findOne({ abbrev_name: abbrev });
-
-    return state;
+    return this.repository.findOne({ name });
   }
 
   async findById(id: string): Promise<State> {
-    const state = await this.repository.findOne(id);
-
-    return state;
+    return this.repository.findOne(id);
   }
 
   async list(): Promise<State[]> {
-    const states = await this.repository.find();
-
-    return states;
+    return this.repository.find();
   }
 }
 

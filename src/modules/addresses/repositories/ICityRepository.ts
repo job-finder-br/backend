@@ -6,9 +6,7 @@ export interface ICrateCityDTO extends ICreateAddressDTO {
 
 interface ICityRepository {
   create(data: ICrateCityDTO): Promise<City>;
-  findByName(name: string): Promise<City>;
-  findByAbbrev(abbrev: string): Promise<City>;
-  findById(id: string): Promise<City>;
+  findByName(name: string): Promise<City | undefined>;
   list(): Promise<City[]>;
   save(data: City): Promise<void>;
 }

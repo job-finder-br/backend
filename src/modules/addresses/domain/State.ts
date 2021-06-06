@@ -9,9 +9,6 @@ class State extends BaseEntity {
   @Column({ unique: true })
   name: string;
 
-  @Column({ unique: true })
-  abbrev_name: string;
-
   @OneToMany(() => City, city => city.state)
   cities: City[];
 }

@@ -15,9 +15,8 @@ class CityRepository implements ICityRepository {
     await this.repository.save(data);
   }
 
-  async create({ abbrev_name, name, state }: ICrateCityDTO): Promise<City> {
+  async create({ name, state }: ICrateCityDTO): Promise<City> {
     const city = this.repository.create({
-      abbrev_name,
       name,
       state,
     });
@@ -28,27 +27,11 @@ class CityRepository implements ICityRepository {
   }
 
   async findByName(name: string): Promise<City> {
-    const city = await this.repository.findOne({ name });
-
-    return city;
-  }
-
-  async findByAbbrev(abbrev: string): Promise<City> {
-    const city = await this.repository.findOne({ abbrev_name: abbrev });
-
-    return city;
-  }
-
-  async findById(id: string): Promise<City> {
-    const city = await this.repository.findOne(id);
-
-    return city;
+    return this.repository.findOne({ name });
   }
 
   async list(): Promise<City[]> {
-    const cities = await this.repository.find();
-
-    return cities;
+    return this.repository.find();
   }
 }
 
