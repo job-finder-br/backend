@@ -8,6 +8,7 @@ import {
 
 type IUpdateRequest = {
   job_id: string;
+  user_id: string;
   data: ICreateJobsWorks;
 };
 
@@ -21,7 +22,7 @@ class UpdateJobWork {
     private categoriesRepository: ICategoryRepository,
   ) {}
 
-  async execute({ job_id, data }: IUpdateRequest): Promise<void> {
+  async execute({ job_id, user_id, data }: IUpdateRequest): Promise<void> {
     console.log({ job_id, data });
     const job = await this.jobsWorkRepository.findById(job_id);
 
@@ -29,7 +30,7 @@ class UpdateJobWork {
       throw new Error('Job listing not found!');
     }
 
-    if (job.fk_user_id !== data.user_id) {
+    if (job.fk_user_id !== user_id) {
       throw new Error('This job listing cannot be updated by this user!');
     }
 

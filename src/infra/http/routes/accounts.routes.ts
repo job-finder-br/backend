@@ -25,7 +25,7 @@ accountsRouter.get('/', ExpressAdapter.create(listUserController.handle));
 
 accountsRouter.get('/:id', ExpressAdapter.create(showUserController.handle));
 
-accountsRouter.put('/:id', ExpressAdapter.create(updateUserController.handle));
+accountsRouter.put('/', ExpressAdapter.create(updateUserController.handle));
 
 accountsRouter.patch(
   '/avatar',

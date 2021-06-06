@@ -12,6 +12,7 @@ class UpdateJobWorkController implements BaseController {
     try {
       await updateJobWork.execute({
         data: request.body,
+        user_id: request.user.id,
         job_id: request.params.id,
       });
 

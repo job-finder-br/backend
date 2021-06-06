@@ -9,7 +9,10 @@ class FavoriteJobController implements BaseController {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     const favoriteJob = container.resolve(FavoriteJob);
     try {
-      await favoriteJob.execute(request.body);
+      await favoriteJob.execute({
+        job_id: request.params.id,
+        user_id: request.user.id,
+      });
 
       return created();
     } catch (error) {

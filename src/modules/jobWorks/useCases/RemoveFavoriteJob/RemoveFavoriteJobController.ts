@@ -9,7 +9,10 @@ class RemoveFavoriteJobController implements BaseController {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     const removeFavoriteJob = container.resolve(RemoveFavoriteJob);
     try {
-      await removeFavoriteJob.execute(request.body);
+      await removeFavoriteJob.execute({
+        job_id: request.params.id,
+        user_id: request.user.id,
+      });
 
       return noContent();
     } catch (error) {
