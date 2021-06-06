@@ -3,6 +3,7 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   Column,
+  DeleteDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -11,13 +12,16 @@ abstract class BaseEntity {
   readonly id?: string;
 
   @Column({ default: true })
-  readonly is_active: boolean;
+  is_active: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
   readonly created_at?: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
   readonly updated_at?: Date;
+
+  @DeleteDateColumn({ type: 'timestamp', nullable: true })
+  readonly deleted_at?: Date;
 
   constructor() {
     if (!this.id) {
