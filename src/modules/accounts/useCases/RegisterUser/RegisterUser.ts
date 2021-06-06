@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { ICreateUserDTO } from '@modules/accounts/domain';
+import { ICreateUserDTO } from '@modules/accounts/dtos';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { RegisterAddress } from '@modules/addresses/useCases/RegisterAddress';

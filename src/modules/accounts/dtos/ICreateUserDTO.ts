@@ -25,7 +25,7 @@ type ICreateUserDTO = {
   city_name?: string;
   state_name?: string;
 
-  favorites_jobs: JobWork[];
+  favorites_jobs?: JobWork[];
   jobs?: JobWork[];
   city?: City;
   state?: string;
