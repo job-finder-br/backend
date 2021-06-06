@@ -15,10 +15,10 @@ class Category extends BaseEntity {
 
   // Relationships
 
-  @OneToMany(() => JobWork, job => job.category, { eager: true })
+  @OneToMany(() => JobWork, job => job.category)
   jobs: JobWork[];
 
-  @OneToMany(() => User, user => user.category, { eager: true })
+  @OneToMany(() => User, user => user.category)
   users: User[];
 }
 

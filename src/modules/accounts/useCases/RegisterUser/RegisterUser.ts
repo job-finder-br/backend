@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { ICreateUserDTO } from '@modules/accounts/domain';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
+import { ICategoryRepository } from '@modules/jobWorks/repositories';
 
 @injectable()
 class RegisterUser {
@@ -12,6 +13,9 @@ class RegisterUser {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('CategoryRepository')
+    private categoriesRepository: ICategoryRepository,
   ) {}
 
   async execute({
@@ -21,6 +25,7 @@ class RegisterUser {
     password,
     phone_number,
     username,
+    category_id,
   }: ICreateUserDTO): Promise<void> {
     const userExistsPromises = await Promise.all([
       this.usersRepository.findByEmail(email),
@@ -31,10 +36,16 @@ class RegisterUser {
     const userExists = userExistsPromises.some(element => element);
 
     if (userExists) {
-      throw new Error('User Already Exists!');
+      throw new Error('User already exists!');
     }
 
     const passwordHashed = await this.hashProvider.generateHash(password);
+
+    const category = await this.categoriesRepository.findById(category_id);
+
+    if (!category) {
+      throw new Error('Category doe not exists!');
+    }
 
     await this.usersRepository.create({
       description,
@@ -43,6 +54,7 @@ class RegisterUser {
       password: passwordHashed,
       phone_number,
       username,
+      category,
     });
   }
 }

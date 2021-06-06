@@ -1,3 +1,5 @@
+import { Category } from '@modules/jobWorks/domain';
+
 type ICreateUserDTO = {
   name: string;
 
@@ -10,6 +12,10 @@ type ICreateUserDTO = {
   password: string;
 
   phone_number: string;
+
+  category?: Category;
+
+  category_id?: string;
 };
 
 export { ICreateUserDTO };

@@ -58,6 +58,7 @@ class UsersRepository implements IUsersRepository {
     password,
     phone_number,
     username,
+    category,
   }: ICreateUserDTO): Promise<void> {
     const user = this.repository.create({
       description,
@@ -66,6 +67,7 @@ class UsersRepository implements IUsersRepository {
       password,
       phone_number,
       username,
+      category,
     });
 
     await this.repository.save(user);

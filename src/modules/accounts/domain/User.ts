@@ -73,6 +73,7 @@ class User extends BaseEntity {
   favorites_jobs: JobWork[];
 
   @ManyToOne(() => Category, category => category.users, {
+    eager: true,
     nullable: true,
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
