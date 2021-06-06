@@ -16,6 +16,8 @@ import {
   IJobsWorkRepository,
   JobsWorksRepository,
 } from '@modules/jobWorks/repositories';
+import { ICategoryRepository } from '@modules/jobWorks/repositories/ICategoryRepository';
+import { CategoryRepository } from '@modules/jobWorks/repositories/typeorm/CategoryRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -32,4 +34,9 @@ container.registerSingleton<ICityRepository>('CityRepository', CityRepository);
 container.registerSingleton<IStateRepository>(
   'StateRepository',
   StateRepository,
+);
+
+container.registerSingleton<ICategoryRepository>(
+  'CategoryRepository',
+  CategoryRepository,
 );
