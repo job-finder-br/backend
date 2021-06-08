@@ -4,6 +4,7 @@ import multer from 'multer';
 import uploadConfig from '@config/uploads';
 import { ExpressAdapter } from '@infra/http/adapters';
 
+import { CelebrateAdapter } from '../adapters/CelebrateAdapter';
 import {
   changeUserPasswordController,
   deleteAccountController,
@@ -14,19 +15,34 @@ import {
   updateUserController,
 } from '../factories/AccountsControllersFactory';
 import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated';
+import { AccountsValidators } from '../validators/AccountsValidators';
 
 const accountsRouter = Router();
 const uploadAvatar = multer(uploadConfig.upload('./uploads/avatar'));
 
-accountsRouter.post('/', ExpressAdapter.create(registerUserController.handle));
+accountsRouter.post(
+  '/',
+  CelebrateAdapter.apply(AccountsValidators.BODY),
+  ExpressAdapter.create(registerUserController.handle),
+);
 
 accountsRouter.use(EnsureAuthenticated.handle);
 
 accountsRouter.get('/', ExpressAdapter.create(listUserController.handle));
 
-accountsRouter.get('/:id', ExpressAdapter.create(showUserController.handle));
+accountsRouter.get('/infos', ExpressAdapter.create(showUserController.handle));
 
-accountsRouter.put('/', ExpressAdapter.create(updateUserController.handle));
+accountsRouter.get(
+  '/:id/infos',
+  CelebrateAdapter.apply(AccountsValidators.ID_PARAM),
+  ExpressAdapter.create(showUserController.handle),
+);
+
+accountsRouter.put(
+  '/',
+  CelebrateAdapter.apply(AccountsValidators.BODY_UPDATE),
+  ExpressAdapter.create(updateUserController.handle),
+);
 
 accountsRouter.delete(
   '/',
