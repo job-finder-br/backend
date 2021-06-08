@@ -29,18 +29,15 @@ class UpdateUser {
       throw new Error('User does not exists!');
     }
 
-    let category = null;
-    if (data.category_id) {
-      category = await this.categoriesRepository.findById(data.category_id);
+    const category = await this.categoriesRepository.findById(data.category_id);
 
-      if (!category) {
-        throw new Error('Category does not exists!');
-      }
+    if (!category) {
+      throw new Error('Category does not exists!');
     }
 
-    const emailExists = await this.usersRepository.findByEmail(data.email);
+    const emailExists = await this.usersRepository.findByEmail(data?.email);
 
-    if (emailExists) {
+    if (emailExists && emailExists.id !== user_id) {
       throw new Error('User email already registed!');
     }
 
@@ -48,7 +45,7 @@ class UpdateUser {
       data.phone_number,
     );
 
-    if (phoneExists) {
+    if (phoneExists && phoneExists.id !== user_id) {
       throw new Error('User phone number already registed!');
     }
 

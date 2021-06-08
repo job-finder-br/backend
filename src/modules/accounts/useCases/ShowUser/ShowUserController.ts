@@ -9,7 +9,7 @@ class ShowUserController implements BaseController {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     const showUser = container.resolve(ShowUser);
     try {
-      const user = await showUser.execute(request.params.id);
+      const user = await showUser.execute(request.params.id || request.user.id);
 
       return ok(user);
     } catch (error) {

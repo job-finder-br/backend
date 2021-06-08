@@ -12,11 +12,15 @@ class CategoryRepository implements ICategoryRepository {
   }
 
   async findById(id: string): Promise<Category | undefined> {
-    return this.repository.findOne(id);
+    const category = await this.repository.findOne(id);
+
+    return category;
   }
 
   async list(): Promise<Category[]> {
-    return this.repository.find();
+    const category = await this.repository.find();
+
+    return category;
   }
 }
 

@@ -31,27 +31,26 @@ class RegisterUser {
     city_name,
     state_name,
   }: ICreateUserDTO): Promise<void> {
-    const userExistsPromises = await Promise.all([
-      this.usersRepository.findByEmail(email),
-      this.usersRepository.findByPhone(phone_number),
-    ]);
+    const userEmailExists = await this.usersRepository.findByEmail(email);
 
-    const userExists = userExistsPromises.some(element => element);
+    if (userEmailExists) {
+      throw new Error('User email already exists!');
+    }
 
-    if (userExists) {
-      throw new Error('User already exists!');
+    const userphoneExists = await this.usersRepository.findByPhone(
+      phone_number,
+    );
+
+    if (userphoneExists) {
+      throw new Error('User phone number already exists!');
     }
 
     const passwordHashed = await this.hashProvider.generateHash(password);
 
-    let category = null;
+    const category = await this.categoriesRepository.findById(category_id);
 
-    if (category_id) {
-      category = await this.categoriesRepository.findById(category_id);
-
-      if (!category) {
-        throw new Error('Category doe not exists!');
-      }
+    if (!category) {
+      throw new Error('Category does not exists!');
     }
 
     const city = await this.RegisterAdress.execute({
