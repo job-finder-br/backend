@@ -9,6 +9,7 @@ import { routes } from './routes';
 
 import '@shared/container';
 import '@infra/database/typeorm';
+import { ExceptionHandler } from './middlewares/ExceptionHandler';
 
 const app = express();
 
@@ -16,5 +17,5 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(routes);
-
+app.use(ExceptionHandler.handle);
 export { app };
