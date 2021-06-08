@@ -7,6 +7,7 @@ import { ExpressAdapter } from '@infra/http/adapters';
 import { CelebrateAdapter } from '../adapters/CelebrateAdapter';
 import {
   changeUserPasswordController,
+  changeUserRecolocationController,
   deleteAccountController,
   listUserController,
   registerUserController,
@@ -47,6 +48,11 @@ accountsRouter.put(
 accountsRouter.delete(
   '/',
   ExpressAdapter.create(deleteAccountController.handle),
+);
+
+accountsRouter.patch(
+  '/recolocation',
+  ExpressAdapter.create(changeUserRecolocationController.handle),
 );
 
 accountsRouter.patch(
