@@ -6,4 +6,5 @@ export type HttpRequest = {
   query: any;
   file: any;
   user: any;
+  headers: any;
 };
