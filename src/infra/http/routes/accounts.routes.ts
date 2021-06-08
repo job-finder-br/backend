@@ -10,6 +10,7 @@ import {
   changeUserRecolocationController,
   deleteAccountController,
   listUserController,
+  listUserRecolocationController,
   registerUserController,
   showUserController,
   updateUserAvatarController,
@@ -53,6 +54,11 @@ accountsRouter.delete(
 accountsRouter.patch(
   '/recolocation',
   ExpressAdapter.create(changeUserRecolocationController.handle),
+);
+
+accountsRouter.get(
+  '/recolocation',
+  ExpressAdapter.create(listUserRecolocationController.handle),
 );
 
 accountsRouter.patch(

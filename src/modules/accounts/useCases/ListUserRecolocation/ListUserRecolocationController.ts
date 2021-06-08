@@ -3,14 +3,14 @@ import { container } from 'tsyringe';
 import { HttpResponse, BaseController } from '@core/.';
 import { clientError, ok } from '@core/infra/HttpResponse';
 
-import { ListUser } from './ListUser';
+import { ListUserRecolocation } from './ListUserRecolocation';
 
-class ListUserController implements BaseController {
+class ListUserRecolocationController implements BaseController {
   async handle(): Promise<HttpResponse> {
-    const listUser = container.resolve(ListUser);
+    const listUserRecolocation = container.resolve(ListUserRecolocation);
 
     try {
-      const users = await listUser.execute();
+      const users = await listUserRecolocation.execute();
 
       return ok(users);
     } catch (error) {
@@ -19,4 +19,4 @@ class ListUserController implements BaseController {
   }
 }
 
-export { ListUserController };
+export { ListUserRecolocationController };

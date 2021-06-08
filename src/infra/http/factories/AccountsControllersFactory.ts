@@ -2,6 +2,7 @@ import { ChangeUserPasswordController } from '@modules/accounts/useCases/ChangeU
 import { ChangeUserRecolocationController } from '@modules/accounts/useCases/ChangeUserRecolocation';
 import { DeleteAccountController } from '@modules/accounts/useCases/DeleteAccount';
 import { ListUserController } from '@modules/accounts/useCases/ListUser';
+import { ListUserRecolocationController } from '@modules/accounts/useCases/ListUserRecolocation';
 import { RegisterUserController } from '@modules/accounts/useCases/RegisterUser';
 import { ShowUserController } from '@modules/accounts/useCases/ShowUser/ShowUserController';
 import { UpdateUserController } from '@modules/accounts/useCases/UpdateUser';
@@ -15,6 +16,7 @@ const changeUserPasswordController = new ChangeUserPasswordController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 const deleteAccountController = new DeleteAccountController();
 const changeUserRecolocationController = new ChangeUserRecolocationController();
+const listUserRecolocationController = new ListUserRecolocationController();
 
 export {
   registerUserController,
@@ -25,4 +27,5 @@ export {
   updateUserAvatarController,
   deleteAccountController,
   changeUserRecolocationController,
+  listUserRecolocationController,
 };

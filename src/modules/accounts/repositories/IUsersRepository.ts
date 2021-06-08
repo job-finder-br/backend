@@ -11,4 +11,5 @@ export interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<void>;
   delete(id: string): Promise<void>;
   list(): Promise<User[]>;
+  listRecolocation(): Promise<User[]>;
 }

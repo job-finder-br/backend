@@ -13,6 +13,14 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User);
   }
 
+  async listRecolocation(): Promise<User[]> {
+    const users = await this.repository.find({
+      where: { is_recolocation: true },
+    });
+
+    return users;
+  }
+
   async delete(id: string): Promise<void> {
     await this.repository.softDelete(id);
   }
