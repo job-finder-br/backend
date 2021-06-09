@@ -25,11 +25,14 @@ class DeleteJobWork {
       throw new Error('This job listing cannot be updated by this user!');
     }
 
+    job.users_favorites = [];
+
     job.user = undefined;
-    job.users_favorites = undefined;
     job.category = undefined;
 
-    await this.jobsWorkRepository.remove(job);
+    await this.jobsWorkRepository.save(job);
+
+    await this.jobsWorkRepository.delete(job_id);
   }
 }
 

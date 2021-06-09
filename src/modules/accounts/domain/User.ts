@@ -59,7 +59,7 @@ class User extends BaseEntity {
   @ManyToMany(() => JobWork, jobwork => jobwork.users_favorites, {
     eager: true,
     nullable: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinTable({

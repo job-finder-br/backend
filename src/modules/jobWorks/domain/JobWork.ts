@@ -34,7 +34,7 @@ class JobWork extends BaseEntity {
 
   @ManyToOne(() => User, user => user.jobs, {
     nullable: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'fk_user_id' })

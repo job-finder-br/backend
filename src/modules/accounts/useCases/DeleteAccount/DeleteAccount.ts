@@ -21,19 +21,19 @@ class DeleteAccount {
       throw new Error('User does not exists!');
     }
 
-    user.jobs.forEach(async element => {
-      await this.deleteJobWork.execute({ job_id: element.id, user_id });
-    });
+    // user.favorites_jobs.forEach(async element => {
+    //   await this.removeFavoriteJob.execute({ job_id: element.id, user_id });
+    // });
 
-    user.favorites_jobs.forEach(async element => {
-      await this.removeFavoriteJob.execute({ job_id: element.id, user_id });
-    });
+    // user.jobs.forEach(async element => {
+    //   await this.deleteJobWork.execute({ job_id: element.id, user_id });
+    // });
 
-    user.jobs = [];
-    user.favorites_jobs = [];
+    // user.jobs = [];
+    // user.favorites_jobs = [];
 
     user.category = undefined;
-    user.is_active = false;
+    user.city = undefined;
 
     await this.usersRepository.save(user);
 
