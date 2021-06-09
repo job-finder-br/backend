@@ -33,7 +33,7 @@ class User extends BaseEntity {
   @Column({ nullable: true })
   curriculum: string;
 
-  @Column({ unique: true })
+  @Column()
   phone_number: string;
 
   @Column({ default: false })

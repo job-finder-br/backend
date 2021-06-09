@@ -17,7 +17,7 @@ class JobWork extends BaseEntity {
   @Column()
   remuneration_value: number;
 
-  @Column({ unique: true })
+  @Column()
   phone_number: string;
 
   @Column({ unique: true })
