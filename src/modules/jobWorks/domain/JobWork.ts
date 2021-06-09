@@ -20,7 +20,7 @@ class JobWork extends BaseEntity {
   @Column()
   phone_number: string;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()

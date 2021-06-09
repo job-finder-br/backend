@@ -1,4 +1,5 @@
 import { User } from '@modules/accounts/domain';
+import { City } from '@modules/addresses/domain';
 
 import { Category } from './Category';
 
@@ -17,12 +18,14 @@ type ICreateJobsWorks = {
 
   represents: string;
 
-  user_id?: string;
+  city_name?: string;
+  state_name?: string;
+  city?: City;
 
   category_id?: string;
-
   category?: Category;
 
+  user_id?: string;
   user?: User;
 };
 

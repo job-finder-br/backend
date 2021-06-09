@@ -18,7 +18,7 @@ class RegisterUser {
     @inject('CategoryRepository')
     private categoriesRepository: ICategoryRepository,
 
-    private RegisterAdress: RegisterAddress,
+    private registerAdress: RegisterAddress,
   ) {}
 
   async execute({
@@ -53,7 +53,7 @@ class RegisterUser {
       throw new Error('Category does not exists!');
     }
 
-    const city = await this.RegisterAdress.execute({
+    const city = await this.registerAdress.execute({
       city_name,
       state_name,
     });
