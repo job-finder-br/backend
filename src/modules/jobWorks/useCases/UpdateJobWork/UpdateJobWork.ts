@@ -33,34 +33,10 @@ class UpdateJobWork {
       throw new Error('This job listing cannot be updated by this user!');
     }
 
-    let category = null;
+    const category = await this.categoriesRepository.findById(data.category_id);
 
-    if (data.category_id) {
-      category = await this.categoriesRepository.findById(data.category_id);
-
-      if (!category) {
-        throw new Error('Category does not exists!');
-      }
-    }
-
-    const titleExists = await this.jobsWorkRepository.findByTitle(data.title);
-
-    if (titleExists) {
-      throw new Error('Job Work Title Already Exists!');
-    }
-
-    const phoneExists = await this.jobsWorkRepository.findByPhone(
-      data.phone_number,
-    );
-
-    if (phoneExists) {
-      throw new Error('Job Work Phone Already Exists!');
-    }
-
-    const emailExists = await this.jobsWorkRepository.findByEmail(data.email);
-
-    if (emailExists) {
-      throw new Error('Job Work Email Already Exists!');
+    if (!category) {
+      throw new Error('Category does not exists!');
     }
 
     Object.assign(job, data);
