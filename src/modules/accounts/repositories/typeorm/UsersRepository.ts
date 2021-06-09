@@ -2,6 +2,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { ICreateUserDTO } from '@modules/accounts/dtos';
+import { JobWork } from '@modules/jobWorks/domain';
 
 import { User } from '../../domain';
 import { IUsersRepository } from '../IUsersRepository';
@@ -11,6 +12,12 @@ class UsersRepository implements IUsersRepository {
 
   constructor() {
     this.repository = getRepository(User);
+  }
+
+  async listFavoritesByUserId(user_id: string): Promise<JobWork[]> {
+    const user = await this.repository.findOne(user_id);
+
+    return user.favorites_jobs;
   }
 
   async listRecolocation(): Promise<User[]> {

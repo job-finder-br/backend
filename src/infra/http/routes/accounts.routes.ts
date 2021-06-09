@@ -10,6 +10,7 @@ import {
   changeUserRecolocationController,
   deleteAccountController,
   listUserController,
+  listUserFavoritesController,
   listUserRecolocationController,
   registerUserController,
   showUserController,
@@ -44,6 +45,11 @@ accountsRouter.put(
   '/',
   CelebrateAdapter.apply(AccountsValidators.BODY_UPDATE),
   ExpressAdapter.create(updateUserController.handle),
+);
+
+accountsRouter.get(
+  '/favorites',
+  ExpressAdapter.create(listUserFavoritesController.handle),
 );
 
 accountsRouter.delete(
