@@ -11,6 +11,15 @@ class JobsWorksRepository implements IJobsWorkRepository {
     this.repository = getRepository(JobWork);
   }
 
+  async listByCategoryId(category_id: string): Promise<JobWork[]> {
+    return this.repository.find({
+      relations: ['category'],
+      where: {
+        fk_category_id: category_id,
+      },
+    });
+  }
+
   async delete(id: string): Promise<void> {
     await this.repository.delete(id);
   }

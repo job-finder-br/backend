@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import { User } from '@modules/accounts/domain';
 import { ICreateUserDTO } from '@modules/accounts/dtos';
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { RegisterAddress } from '@modules/addresses/useCases/RegisterAddress';
@@ -22,7 +23,7 @@ class UpdateUser {
     private RegisterAdress: RegisterAddress,
   ) {}
 
-  async execute({ data, user_id }: IUpdateUserRequest): Promise<void> {
+  async execute({ data, user_id }: IUpdateUserRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
@@ -33,12 +34,6 @@ class UpdateUser {
 
     if (!category) {
       throw new Error('Category does not exists!');
-    }
-
-    const emailExists = await this.usersRepository.findByEmail(data?.email);
-
-    if (emailExists && emailExists.id !== user_id) {
-      throw new Error('User email already registed!');
     }
 
     const phoneExists = await this.usersRepository.findByPhone(
@@ -60,6 +55,8 @@ class UpdateUser {
     user.city = city;
 
     await this.usersRepository.save(user);
+
+    return user;
   }
 }
 

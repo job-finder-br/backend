@@ -3,6 +3,10 @@ import { inject, injectable } from 'tsyringe';
 import { JobWork } from '@modules/jobWorks/domain';
 import { IJobsWorkRepository } from '@modules/jobWorks/repositories';
 
+type IFilterRequest = {
+  category_id: string;
+};
+
 @injectable()
 class ListJobsWork {
   constructor(
@@ -10,10 +14,12 @@ class ListJobsWork {
     private jobsWorkRepository: IJobsWorkRepository,
   ) {}
 
-  async execute(): Promise<JobWork[]> {
-    const jobs = await this.jobsWorkRepository.list();
+  async execute(filters: IFilterRequest): Promise<JobWork[]> {
+    if (filters.category_id) {
+      return this.jobsWorkRepository.listByCategoryId(filters.category_id);
+    }
 
-    return jobs;
+    return this.jobsWorkRepository.list();
   }
 }
 

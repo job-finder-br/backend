@@ -9,12 +9,12 @@ class UpdateUserController implements BaseController {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     const updateUser = container.resolve(UpdateUser);
     try {
-      await updateUser.execute({
+      const user = await updateUser.execute({
         data: request.body,
         user_id: request.user.id,
       });
 
-      return ok();
+      return ok(user);
     } catch (error) {
       return clientError(error);
     }

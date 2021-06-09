@@ -22,7 +22,6 @@ const AccountsValidators = {
     [Segments.BODY]: Joi.object().keys({
       category_id: Joi.string().uuid().required(),
       description: Joi.string().required(),
-      email: Joi.string().email().required(),
       name: Joi.string().required(),
       phone_number: Joi.string().required(),
       state_name: Joi.string().required(),

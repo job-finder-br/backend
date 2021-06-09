@@ -7,6 +7,7 @@ interface IJobsWorkRepository {
   findByEmail(email: string): Promise<JobWork | undefined>;
   findById(id: string): Promise<JobWork | undefined>;
   list(): Promise<JobWork[]>;
+  listByCategoryId(category_id: string): Promise<JobWork[]>;
   save(data: JobWork): Promise<void>;
   delete(id: string): Promise<void>;
 }
