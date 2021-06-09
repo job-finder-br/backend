@@ -14,6 +14,12 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User);
   }
 
+  async listJobsByUserId(user_id: string): Promise<JobWork[]> {
+    const user = await this.repository.findOne(user_id);
+
+    return user.jobs;
+  }
+
   async listFavoritesByUserId(user_id: string): Promise<JobWork[]> {
     const user = await this.repository.findOne(user_id);
 

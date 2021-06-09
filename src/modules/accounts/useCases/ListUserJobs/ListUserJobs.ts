@@ -4,17 +4,17 @@ import { IUsersRepository } from '@modules/accounts/repositories';
 import { JobWork } from '@modules/jobWorks/domain';
 
 @injectable()
-class ListUserFavorites {
+class ListUserJobs {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
   async execute(user_id: string): Promise<JobWork[]> {
-    const favorites = await this.usersRepository.listFavoritesByUserId(user_id);
+    const jobs = await this.usersRepository.listJobsByUserId(user_id);
 
-    return favorites;
+    return jobs;
   }
 }
 
-export { ListUserFavorites };
+export { ListUserJobs };

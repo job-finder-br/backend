@@ -11,6 +11,7 @@ import {
   deleteAccountController,
   listUserController,
   listUserFavoritesController,
+  listUserJobsController,
   listUserRecolocationController,
   registerUserController,
   showUserController,
@@ -50,6 +51,11 @@ accountsRouter.put(
 accountsRouter.get(
   '/favorites',
   ExpressAdapter.create(listUserFavoritesController.handle),
+);
+
+accountsRouter.get(
+  '/jobs',
+  ExpressAdapter.create(listUserJobsController.handle),
 );
 
 accountsRouter.delete(

@@ -3,6 +3,7 @@ import { ChangeUserRecolocationController } from '@modules/accounts/useCases/Cha
 import { DeleteAccountController } from '@modules/accounts/useCases/DeleteAccount';
 import { ListUserController } from '@modules/accounts/useCases/ListUser';
 import { ListUserFavoritesController } from '@modules/accounts/useCases/ListUserFavorites';
+import { ListUserJobsController } from '@modules/accounts/useCases/ListUserJobs';
 import { ListUserRecolocationController } from '@modules/accounts/useCases/ListUserRecolocation';
 import { RegisterUserController } from '@modules/accounts/useCases/RegisterUser';
 import { ShowUserController } from '@modules/accounts/useCases/ShowUser/ShowUserController';
@@ -19,6 +20,7 @@ const deleteAccountController = new DeleteAccountController();
 const changeUserRecolocationController = new ChangeUserRecolocationController();
 const listUserRecolocationController = new ListUserRecolocationController();
 const listUserFavoritesController = new ListUserFavoritesController();
+const listUserJobsController = new ListUserJobsController();
 
 export {
   registerUserController,
@@ -31,4 +33,5 @@ export {
   changeUserRecolocationController,
   listUserRecolocationController,
   listUserFavoritesController,
+  listUserJobsController,
 };

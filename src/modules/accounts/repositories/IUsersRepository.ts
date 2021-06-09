@@ -13,6 +13,7 @@ interface IUsersRepository {
   delete(id: string): Promise<void>;
   list(): Promise<User[]>;
   listFavoritesByUserId(user_id: string): Promise<JobWork[]>;
+  listJobsByUserId(user_id: string): Promise<JobWork[]>;
   listRecolocation(): Promise<User[]>;
 }
 
