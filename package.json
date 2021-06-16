@@ -35,6 +35,7 @@
     "lint": "eslint src --ext .ts"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.10",
     "@types/express": "^4.17.12",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/morgan": "^1.9.2",
@@ -44,6 +45,7 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "cors": "^2.8.5",
     "eslint": "^7.25.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
