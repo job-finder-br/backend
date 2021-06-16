@@ -1,13 +1,15 @@
-import { createConnection, getConnectionOptions } from 'typeorm';
+import { Connection, createConnection, getConnectionOptions } from 'typeorm';
 
-interface IOptions {
-  host: string;
-}
+import { Logger } from '@shared/Logger';
 
 getConnectionOptions().then(options => {
-  const newOptions = options as IOptions;
-  newOptions.host = 'database';
   createConnection({
     ...options,
-  });
+  })
+    .then((connection: Connection) => {
+      Logger.info(`🟩 Database ${connection.name} Connection Successful!`);
+    })
+    .catch((error: Error) => {
+      Logger.fatal(`🟥 Database ${error.message} Connection failed!`);
+    });
 });
