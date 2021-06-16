@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2019",
     "module": "commonjs",
     "lib": ["es6"],
     "allowJs": true,
@@ -15,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./",
     "baseUrl": "./src",
-    "outDir": "./dist",
+    "outDir": "./build",
     "paths": {
       "@modules/*": ["modules/*"],
       "@core/*": ["core/*"],

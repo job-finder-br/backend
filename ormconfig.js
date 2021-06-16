@@ -1,4 +1,4 @@
-import 'dotenv/config';
+require('dotenv').config();
 
 const rootDir = process.env.NODE_ENV === 'production' ? './build' : './src';
 

@@ -1,3 +1,3 @@
-export { City } from './City';
-export { State } from './State';
+export * from './City';
+export * from './State';
 export { ICreateAddressDTO } from './ICreateAddressDTO';

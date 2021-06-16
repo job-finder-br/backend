@@ -1,3 +1,3 @@
-export { Category } from './Category';
-export { JobWork } from './JobWork';
+export * from './Category';
+export * from './JobWork';
 export { ICreateJobsWorks } from './ICreateJobsWorks';
