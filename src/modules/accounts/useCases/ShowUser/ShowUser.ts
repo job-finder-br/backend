@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { User } from '@modules/accounts/domain';
+import { IUserResponseMapper } from '@modules/accounts/dtos';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 import { IUsersRepository } from '@modules/accounts/repositories';
 
 @injectable()
@@ -10,14 +11,14 @@ class ShowUser {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(id: string): Promise<User> {
+  async execute(id: string): Promise<IUserResponseMapper> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
       throw new Error('User does not exists!');
     }
 
-    return user;
+    return UserMapper.render(user);
   }
 }
 

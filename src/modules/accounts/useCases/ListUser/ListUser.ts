@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { User } from '@modules/accounts/domain';
+import { IUserResponseMapper } from '@modules/accounts/dtos';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 import { IUsersRepository } from '@modules/accounts/repositories';
 
 @injectable()
@@ -10,10 +11,10 @@ class ListUser {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(): Promise<User[]> {
+  async execute(): Promise<IUserResponseMapper[]> {
     const users = await this.usersRepository.list();
 
-    return users;
+    return UserMapper.renderMany(users);
   }
 }
 

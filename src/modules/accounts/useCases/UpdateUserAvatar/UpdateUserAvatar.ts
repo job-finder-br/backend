@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
+import { IStorageProvider } from '@infra/providers/StorageProvider/IStorageProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
-import { deleteFile } from '@shared/helpers/deleFile';
+import { AppException } from '@shared/errors/AppException';
 
 type IUpdateUserAvatarRequest = {
   user_id: string;
@@ -13,6 +14,9 @@ class UpdateUserAvatar {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   async execute({
@@ -22,16 +26,24 @@ class UpdateUserAvatar {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      await deleteFile(`./uploads/avatar/${avatar_file}`);
-
-      throw new Error('User not found!');
+      throw new AppException({
+        message: 'User not found, unauthorized!',
+        statusCode: 401,
+      });
     }
 
     if (user.avatar) {
-      await deleteFile(`./uploads/avatar/${user.avatar}`);
+      const [fileName] = user.avatar.split('?');
+
+      await this.storageProvider.deleteFile('avatars', fileName);
     }
 
-    user.avatar = avatar_file;
+    const avatar_pointer = await this.storageProvider.saveFile(
+      'avatars',
+      avatar_file,
+    );
+
+    user.avatar = avatar_pointer;
 
     await this.usersRepository.save(user);
   }
