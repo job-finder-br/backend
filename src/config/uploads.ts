@@ -4,9 +4,9 @@ import multer from 'multer';
 import { resolve } from 'path';
 
 export default {
-  upload: (folder: string) => ({
+  upload: {
     storage: multer.diskStorage({
-      destination: resolve(__dirname, '..', '..', folder),
+      destination: resolve(__dirname, '..', '..', 'uploads'),
 
       filename: (request, file, callback) => {
         const fileHash = crypto.randomBytes(16).toString('hex');
@@ -15,5 +15,5 @@ export default {
         return callback(null, fileName);
       },
     }),
-  }),
+  },
 };

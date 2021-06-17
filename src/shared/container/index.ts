@@ -1,6 +1,7 @@
 import '@modules/accounts/providers';
 
 import { container } from 'tsyringe';
+import '@infra/providers';
 
 import {
   IUsersRepository,

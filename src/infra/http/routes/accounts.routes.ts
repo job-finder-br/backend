@@ -22,7 +22,7 @@ import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated';
 import { AccountsValidators } from '../validators/AccountsValidators';
 
 const accountsRouter = Router();
-const uploadAvatar = multer(uploadConfig.upload('./uploads/avatar'));
+const uploadAvatar = multer(uploadConfig.upload);
 
 accountsRouter.post(
   '/',
