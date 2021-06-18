@@ -6,6 +6,12 @@
 
 ![ER-model](ER.png)
 
+### Docker-compose Dev
+
+```sh
+docker-compose -f docker-compose.dev.yaml up -d --build
+```
+
 ### Database de testes
 
 ```sh
