@@ -34,7 +34,10 @@ export default {
         ].includes(file.mimetype)
       ) {
         callback(null, true);
+
+        return;
       }
+
       callback(null, false);
 
       return callback(new Error('Only images and pdf files!'));
