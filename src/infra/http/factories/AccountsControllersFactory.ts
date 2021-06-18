@@ -9,6 +9,7 @@ import { RegisterUserController } from '@modules/accounts/useCases/RegisterUser'
 import { ShowUserController } from '@modules/accounts/useCases/ShowUser/ShowUserController';
 import { UpdateUserController } from '@modules/accounts/useCases/UpdateUser';
 import { UpdateUserAvatarController } from '@modules/accounts/useCases/UpdateUserAvatar/';
+import { UpdateUserCurriculumController } from '@modules/accounts/useCases/UpdateUserCurriculum';
 
 const registerUserController = new RegisterUserController();
 const listUserController = new ListUserController();
@@ -21,6 +22,7 @@ const changeUserRecolocationController = new ChangeUserRecolocationController();
 const listUserRecolocationController = new ListUserRecolocationController();
 const listUserFavoritesController = new ListUserFavoritesController();
 const listUserJobsController = new ListUserJobsController();
+const updateUserCurriculumController = new UpdateUserCurriculumController();
 
 export {
   registerUserController,
@@ -34,4 +36,5 @@ export {
   listUserRecolocationController,
   listUserFavoritesController,
   listUserJobsController,
+  updateUserCurriculumController,
 };

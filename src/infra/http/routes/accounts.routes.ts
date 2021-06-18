@@ -17,12 +17,13 @@ import {
   showUserController,
   updateUserAvatarController,
   updateUserController,
+  updateUserCurriculumController,
 } from '../factories/AccountsControllersFactory';
 import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated';
 import { AccountsValidators } from '../validators/AccountsValidators';
 
 const accountsRouter = Router();
-const uploadAvatar = multer(uploadConfig.upload);
+const uploadFile = multer(uploadConfig.upload);
 
 accountsRouter.post(
   '/',
@@ -75,8 +76,14 @@ accountsRouter.get(
 
 accountsRouter.patch(
   '/avatar',
-  uploadAvatar.single('avatar'),
+  uploadFile.single('avatar'),
   ExpressAdapter.create(updateUserAvatarController.handle),
+);
+
+accountsRouter.patch(
+  '/curriculum',
+  uploadFile.single('curriculum'),
+  ExpressAdapter.create(updateUserCurriculumController.handle),
 );
 
 accountsRouter.patch(

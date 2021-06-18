@@ -12,11 +12,7 @@ enum ACCEPTED_TYPE_UPLOADS_FILES {
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
-const fileFilter = (
-  request: any,
-  file: { mimetype: ACCEPTED_TYPE_UPLOADS_FILES },
-  callback: any,
-) => {
+const fileFilter = (request, file, callback) => {
   if (
     [
       ACCEPTED_TYPE_UPLOADS_FILES.JPEG,
@@ -33,20 +29,18 @@ const fileFilter = (
   }
 };
 
-const storage = multer.diskStorage({
-  destination: resolve(__dirname, '..', '..', 'uploads'),
-
-  filename: (request, file, callback) => {
-    const fileHash = crypto.randomBytes(8).toString('hex');
-    const fileName = `${file.originalname + fileHash}.png`;
-
-    return callback(null, fileName);
-  },
-});
-
 export default {
   upload: {
-    storage,
+    storage: multer.diskStorage({
+      destination: resolve(__dirname, '..', '..', 'uploads'),
+
+      filename: (request, file, callback) => {
+        const fileHash = crypto.randomBytes(8).toString('hex');
+        const fileName = `${file.originalname + fileHash}.png`;
+
+        return callback(null, fileName);
+      },
+    }),
     fileFilter,
     limits: { fileSize: MAX_FILE_SIZE },
   },

@@ -19,6 +19,7 @@ class UserMapper {
     favorites_jobs,
   }: User): IUserResponseMapper => {
     const avatar_uri = `${process.env.FIREBASE_URI_VIEW_FILES}avatars%2F${avatar}`;
+    const curriculum_uri = `${process.env.FIREBASE_URI_VIEW_FILES}curriculums%2F${curriculum}`;
 
     return {
       id,
@@ -28,6 +29,7 @@ class UserMapper {
       avatar,
       avatar_uri,
       curriculum,
+      curriculum_uri,
       category,
       phone_number,
       city,

@@ -6,9 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 import { Bucket } from '@google-cloud/storage';
 
-import { IStorageProvider } from '../IStorageProvider';
-
-type DestinationFile = 'avatars' | 'curriculum';
+import { DestinationFile, IStorageProvider } from '../IStorageProvider';
 
 class FireBaseStorageProvider implements IStorageProvider {
   private bucket: Bucket;
@@ -26,10 +24,12 @@ class FireBaseStorageProvider implements IStorageProvider {
     this.bucket = firebaseAdmin.storage().bucket();
   }
 
-  private resolveTokenName() {
+  private resolveTokenName(destination: DestinationFile) {
     const fileToken = uuid();
 
-    const newFileName = `${fileToken}.jpg`;
+    const extensionFile = destination === 'avatars' ? 'jpg' : 'pdf';
+
+    const newFileName = `${fileToken}.${extensionFile}`;
 
     return {
       newFileName,
@@ -50,14 +50,9 @@ class FireBaseStorageProvider implements IStorageProvider {
   }
 
   async saveFile(destination: DestinationFile, file: string): Promise<string> {
-    const { fileToken, newFileName } = this.resolveTokenName();
-    const fileOriginPath = this.resolveFilePath(file);
+    const { fileToken, newFileName } = this.resolveTokenName(destination);
 
-    console.log({
-      fileToken,
-      newFileName,
-      fileOriginPath,
-    });
+    const fileOriginPath = this.resolveFilePath(file);
 
     await this.bucket.upload(fileOriginPath, {
       destination: `${destination}/${newFileName}`,
