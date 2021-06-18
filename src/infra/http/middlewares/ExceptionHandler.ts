@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { AppException } from '@shared/errors/AppException';
 import { CelebrateError } from 'celebrate';
 import { Response, Request, NextFunction } from 'express';
 
@@ -10,11 +11,25 @@ type ValidationCelebrateErrors = {
 
 class ExceptionHandler {
   static handle(
-    err: Error,
+    err: Error | any,
     _request: Request,
     response: Response,
     _next: NextFunction,
   ): Response {
+    if (err instanceof AppException || Error) {
+      if (!err.statusCode) {
+        return response.status(400).json({
+          status: 'error',
+          message: err.message,
+        });
+      }
+
+      return response.status(err.statusCode).json({
+        status: 'error',
+        message: err.message,
+      });
+    }
+
     if (err instanceof CelebrateError) {
       const CelebratePropsErrors: ValidationCelebrateErrors = new Map();
 
