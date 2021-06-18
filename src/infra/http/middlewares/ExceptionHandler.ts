@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { AppException } from '@shared/errors/AppException';
 import { CelebrateError } from 'celebrate';
 import { Response, Request, NextFunction } from 'express';
+
+import { AppException } from '@shared/errors/AppException';
 
 import { CelebrateMapper } from '../adapters/CelebrateAdapter';
 

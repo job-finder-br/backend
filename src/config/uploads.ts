@@ -12,23 +12,6 @@ enum ACCEPTED_TYPE_UPLOADS_FILES {
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
-const fileFilter = (request, file, callback) => {
-  if (
-    [
-      ACCEPTED_TYPE_UPLOADS_FILES.JPEG,
-      ACCEPTED_TYPE_UPLOADS_FILES.JPG,
-      ACCEPTED_TYPE_UPLOADS_FILES.PDF,
-      ACCEPTED_TYPE_UPLOADS_FILES.PNG,
-    ].includes(file.mimetype)
-  ) {
-    callback(null, true);
-  } else {
-    callback(null, false);
-
-    return callback(new Error('Only images and pdf files!'));
-  }
-};
-
 export default {
   upload: {
     storage: multer.diskStorage({
@@ -41,7 +24,22 @@ export default {
         return callback(null, fileName);
       },
     }),
-    fileFilter,
+    fileFilter: (request, file, callback) => {
+      if (
+        [
+          ACCEPTED_TYPE_UPLOADS_FILES.JPEG,
+          ACCEPTED_TYPE_UPLOADS_FILES.JPG,
+          ACCEPTED_TYPE_UPLOADS_FILES.PDF,
+          ACCEPTED_TYPE_UPLOADS_FILES.PNG,
+        ].includes(file.mimetype)
+      ) {
+        callback(null, true);
+      }
+      callback(null, false);
+
+      return callback(new Error('Only images and pdf files!'));
+    },
+
     limits: { fileSize: MAX_FILE_SIZE },
   },
 };

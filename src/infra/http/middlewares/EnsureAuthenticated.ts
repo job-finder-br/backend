@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
+
 import 'dotenv/config';
 import { AppException } from '@shared/errors/AppException';
 
