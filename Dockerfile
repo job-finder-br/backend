@@ -8,10 +8,16 @@ RUN yarn
 
 COPY . .
 
-RUN yarn dev:typeorm migration:run
+RUN yarn build
 
-RUN yarn dev:seed:run
+RUN cp ./src/config/storageSecrets.json ./build/config/storageSecrets.json
+
+RUN rm -rf ./src
+
+RUN yarn typeorm migration:run
+
+RUN yarn seed:run
 
 EXPOSE 3333
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]

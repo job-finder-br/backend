@@ -17,7 +17,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
-app.use(routes);
+app.use('/api', routes);
 app.use(ExceptionHandler.handle);
 
 export { app };
