@@ -34,13 +34,13 @@ export default {
         ].includes(file.mimetype)
       ) {
         callback(null, true);
+      } else {
+        callback(null, false);
 
-        return;
+        return callback(new Error('Only images and pdf files!'));
       }
 
-      callback(null, false);
-
-      return callback(new Error('Only images and pdf files!'));
+      return null;
     },
 
     limits: { fileSize: MAX_FILE_SIZE },
