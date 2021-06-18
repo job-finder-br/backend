@@ -39,7 +39,7 @@ class UserMapper {
   };
 
   public static renderMany(users: User[]): IUserResponseMapper[] {
-    return users.map(user => this.render(user));
+    return users.map(this.render);
   }
 }
 

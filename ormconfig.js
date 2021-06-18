@@ -5,7 +5,7 @@ const rootDir = process.env.NODE_ENV === 'production' ? './build' : './src';
 module.exports = {
   name: 'default',
   type: 'postgres',
-  logging: true,
+  logging: false,
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
   username: process.env.POSTGRES_USER,
