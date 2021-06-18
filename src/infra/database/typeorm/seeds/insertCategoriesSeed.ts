@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import { Seeder } from 'typeorm-seeding';
 
 import { Category } from '@modules/jobWorks/domain';
+import { Logger } from '@shared/Logger';
 
 class InsertCategories implements Seeder {
   public async run(): Promise<void> {
@@ -86,7 +87,11 @@ class InsertCategories implements Seeder {
       return category;
     });
 
-    await categoriesRepository.save(insertedData);
+    try {
+      await categoriesRepository.save(insertedData);
+    } catch {
+      Logger.warn('Migration Already Exists!');
+    }
   }
 }
 
