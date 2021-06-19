@@ -35,6 +35,8 @@ class JobWork extends BaseEntity {
   @Column()
   fk_category_id: string;
 
+  // Relationships
+
   @ManyToOne(() => User, user => user.jobs, {
     nullable: true,
     onDelete: 'CASCADE',
