@@ -9,9 +9,9 @@ class RegisterUserController implements BaseController {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     const registerUser = container.resolve(RegisterUser);
     try {
-      await registerUser.execute(request.body);
+      const user = await registerUser.execute(request.body);
 
-      return created();
+      return created(user);
     } catch (error) {
       return clientError(error);
     }

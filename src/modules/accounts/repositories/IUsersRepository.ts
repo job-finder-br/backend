@@ -9,7 +9,7 @@ interface IUsersRepository {
   findByEmail(email: string): Promise<User | undefined>;
   findByPhone(phone: string): Promise<User | undefined>;
   save(data: User): Promise<void>;
-  create(data: ICreateUserDTO): Promise<void>;
+  create(data: ICreateUserDTO): Promise<User>;
   delete(id: string): Promise<void>;
   list(): Promise<User[]>;
   listFavoritesByUserId(user_id: string): Promise<JobWork[]>;

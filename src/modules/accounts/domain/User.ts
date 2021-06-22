@@ -42,7 +42,7 @@ class User extends BaseEntity {
   @Column({ default: false })
   is_admin: boolean;
 
-  // Relatioships
+  // Relationships
 
   @OneToMany(() => JobWork, jobwork => jobwork.user, { eager: true })
   jobs: JobWork[];
