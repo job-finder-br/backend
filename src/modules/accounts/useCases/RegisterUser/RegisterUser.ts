@@ -1,10 +1,12 @@
 import { inject, injectable } from 'tsyringe';
 
-import { ICreateUserDTO } from '@modules/accounts/dtos';
+import { ICreateUserDTO, IUserResponseMapper } from '@modules/accounts/dtos';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { RegisterAddress } from '@modules/addresses/useCases/RegisterAddress';
 import { ICategoryRepository } from '@modules/jobWorks/repositories';
+import { User } from '@modules/accounts/domain';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 
 @injectable()
 class RegisterUser {
@@ -30,7 +32,7 @@ class RegisterUser {
     category_id,
     city_name,
     state_name,
-  }: ICreateUserDTO): Promise<void> {
+  }: ICreateUserDTO): Promise<IUserResponseMapper> {
     const userEmailExists = await this.usersRepository.findByEmail(email);
 
     if (userEmailExists) {
@@ -58,7 +60,7 @@ class RegisterUser {
       state_name,
     });
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       description,
       email,
       name,
@@ -67,6 +69,8 @@ class RegisterUser {
       category,
       city,
     });
+
+    return UserMapper.render(user);
   }
 }
 

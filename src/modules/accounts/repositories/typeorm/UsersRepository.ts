@@ -80,7 +80,7 @@ class UsersRepository implements IUsersRepository {
     phone_number,
     category,
     city,
-  }: ICreateUserDTO): Promise<void> {
+  }: ICreateUserDTO): Promise<User> {
     const user = this.repository.create({
       description,
       email,
@@ -92,6 +92,8 @@ class UsersRepository implements IUsersRepository {
     });
 
     await this.repository.save(user);
+
+    return user;
   }
 }
 export { UsersRepository };
