@@ -21,9 +21,9 @@ class ExpressAdapter {
         return response.status(httpResponse.statusCode).json(httpResponse.body);
       }
 
-      return response.status(httpResponse.statusCode).json({
-        error: httpResponse.body.error,
-      });
+      return response
+        .status(httpResponse.statusCode)
+        .json({ ...httpResponse.body });
     };
 }
 
