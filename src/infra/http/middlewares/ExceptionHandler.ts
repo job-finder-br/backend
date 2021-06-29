@@ -17,14 +17,7 @@ class ExceptionHandler {
     response: Response,
     _next: NextFunction,
   ): Response {
-    if (err instanceof AppException || Error) {
-      if (!err.statusCode) {
-        return response.status(400).json({
-          status: 'error',
-          message: err.message,
-        });
-      }
-
+    if (err instanceof AppException) {
       return response.status(err.statusCode).json({
         status: 'error',
         message: err.message,

@@ -7,6 +7,7 @@ import {
   ICategoryRepository,
   IJobsWorkRepository,
 } from '@modules/jobWorks/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 @injectable()
 class RegisterJobWork {
@@ -38,13 +39,19 @@ class RegisterJobWork {
   }: ICreateJobsWorks): Promise<void> {
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
-      throw new Error('User does not exists!');
+      throw new AppException({
+        message: 'User does not exists!',
+        statusCode: 404,
+      });
     }
 
     const category = await this.categoriesRepository.findById(category_id);
 
     if (!category) {
-      throw new Error('Category does not exists!');
+      throw new AppException({
+        message: 'Category does not exists!',
+        statusCode: 404,
+      });
     }
 
     const city = await this.registerAdress.execute({

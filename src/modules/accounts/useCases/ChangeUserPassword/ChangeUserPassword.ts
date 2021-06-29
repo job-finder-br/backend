@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 type IChangeUserPasswordRequest = {
   user_id: string;
@@ -25,7 +26,10 @@ class ChangeUserPassword {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new Error('User does not exists!');
+      throw new AppException({
+        message: 'User does not exists!',
+        statusCode: 404,
+      });
     }
 
     const passwordMatch = await this.hashProvider.compareHash(
@@ -34,7 +38,10 @@ class ChangeUserPassword {
     );
 
     if (!passwordMatch) {
-      throw new Error('User password incorrect!');
+      throw new AppException({
+        message: 'User password incorrect!',
+        statusCode: 403,
+      });
     }
 
     const verifyNewPassword = await this.hashProvider.compareHash(
@@ -43,7 +50,10 @@ class ChangeUserPassword {
     );
 
     if (verifyNewPassword) {
-      throw new Error('User password must be different from the current!');
+      throw new AppException({
+        message: 'User password must be different from the current!',
+        statusCode: 403,
+      });
     }
 
     const newHashedPassword = await this.hashProvider.generateHash(

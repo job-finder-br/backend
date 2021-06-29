@@ -6,6 +6,7 @@ import { ICreateUserDTO } from '@modules/accounts/domain';
 import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 type IAuthRequest = {
   email: string;
@@ -31,7 +32,10 @@ class AuthenticateUser {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('Email or password incorrect!');
+      throw new AppException({
+        message: 'Email or password incorrect!',
+        statusCode: 401,
+      });
     }
 
     const passwordMatch = await this.hashProvider.compareHash(
@@ -40,7 +44,10 @@ class AuthenticateUser {
     );
 
     if (!passwordMatch) {
-      throw new Error('Email or password incorrect!');
+      throw new AppException({
+        message: 'Email or password incorrect!',
+        statusCode: 401,
+      });
     }
 
     const { expiresIn, secret } = jwt_secrets;

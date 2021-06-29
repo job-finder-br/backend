@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IJobsWorkRepository } from '@modules/jobWorks/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 type IUpdateRequest = {
   job_id: string;
@@ -18,11 +19,17 @@ class DeleteJobWork {
     const job = await this.jobsWorkRepository.findById(job_id);
 
     if (!job) {
-      throw new Error('Job listing not found!');
+      throw new AppException({
+        message: 'Job listing not found!',
+        statusCode: 404,
+      });
     }
 
     if (job.fk_user_id !== user_id) {
-      throw new Error('This job listing cannot be updated by this user!');
+      throw new AppException({
+        message: 'This job listing cannot be updated by this user!',
+        statusCode: 403,
+      });
     }
 
     job.users_favorites = [];

@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/accounts/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 @injectable()
 class DeleteAccount {
@@ -13,7 +14,10 @@ class DeleteAccount {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new Error('User does not exists!');
+      throw new AppException({
+        message: 'User does not exists!',
+        statusCode: 404,
+      });
     }
 
     await this.usersRepository.delete(user_id);

@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 
 import { HttpResponse, BaseController, HttpRequest } from '@core/.';
-import { created, conflict } from '@core/infra/HttpResponse';
+import { created, clientError } from '@core/infra/HttpResponse';
 
 import { UpdateJobWork } from './UpdateJobWork';
 
@@ -18,7 +18,7 @@ class UpdateJobWorkController implements BaseController {
 
       return created();
     } catch (error) {
-      return conflict(error);
+      return clientError(error);
     }
   }
 }

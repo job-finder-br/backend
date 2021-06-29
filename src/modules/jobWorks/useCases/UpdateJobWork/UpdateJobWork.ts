@@ -5,6 +5,7 @@ import {
   ICategoryRepository,
   IJobsWorkRepository,
 } from '@modules/jobWorks/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 type IUpdateRequest = {
   job_id: string;
@@ -26,17 +27,26 @@ class UpdateJobWork {
     const job = await this.jobsWorkRepository.findById(job_id);
 
     if (!job) {
-      throw new Error('Job listing not found!');
+      throw new AppException({
+        message: 'Job listing not found!',
+        statusCode: 404,
+      });
     }
 
     if (job.fk_user_id !== user_id) {
-      throw new Error('This job listing cannot be updated by this user!');
+      throw new AppException({
+        message: 'This job listing cannot be updated by this user!',
+        statusCode: 403,
+      });
     }
 
     const category = await this.categoriesRepository.findById(data.category_id);
 
     if (!category) {
-      throw new Error('Category does not exists!');
+      throw new AppException({
+        message: 'Category does not exists!',
+        statusCode: 404,
+      });
     }
 
     Object.assign(job, data);

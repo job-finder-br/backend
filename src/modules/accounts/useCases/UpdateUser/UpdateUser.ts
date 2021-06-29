@@ -5,6 +5,7 @@ import { ICreateUserDTO } from '@modules/accounts/dtos';
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { RegisterAddress } from '@modules/addresses/useCases/RegisterAddress';
 import { ICategoryRepository } from '@modules/jobWorks/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 type IUpdateUserRequest = {
   user_id: string;
@@ -27,13 +28,19 @@ class UpdateUser {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new Error('User does not exists!');
+      throw new AppException({
+        message: 'User does not exists!',
+        statusCode: 404,
+      });
     }
 
     const category = await this.categoriesRepository.findById(data.category_id);
 
     if (!category) {
-      throw new Error('Category does not exists!');
+      throw new AppException({
+        message: 'Category does not exists!',
+        statusCode: 404,
+      });
     }
 
     const phoneExists = await this.usersRepository.findByPhone(
@@ -41,7 +48,10 @@ class UpdateUser {
     );
 
     if (phoneExists && phoneExists.id !== user_id) {
-      throw new Error('User phone number already registed!');
+      throw new AppException({
+        message: 'User phone number already registed!',
+        statusCode: 409,
+      });
     }
 
     const city = await this.RegisterAdress.execute({

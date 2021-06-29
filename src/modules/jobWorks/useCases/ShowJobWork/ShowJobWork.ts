@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { JobWork } from '@modules/jobWorks/domain';
 import { IJobsWorkRepository } from '@modules/jobWorks/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 @injectable()
 class ShowJobWork {
@@ -14,7 +15,10 @@ class ShowJobWork {
     const job = await this.jobsWorkRepository.findById(id);
 
     if (!job) {
-      throw new Error('Job does not exists!');
+      throw new AppException({
+        message: 'Job does not exists!',
+        statusCode: 404,
+      });
     }
 
     return job;

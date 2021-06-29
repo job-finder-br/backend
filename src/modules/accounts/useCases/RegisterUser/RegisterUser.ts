@@ -1,12 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 
+import { User } from '@modules/accounts/domain';
 import { ICreateUserDTO, IUserResponseMapper } from '@modules/accounts/dtos';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { RegisterAddress } from '@modules/addresses/useCases/RegisterAddress';
 import { ICategoryRepository } from '@modules/jobWorks/repositories';
-import { User } from '@modules/accounts/domain';
-import { UserMapper } from '@modules/accounts/mappers/UserMapper';
+import { AppException } from '@shared/errors/AppException';
 
 @injectable()
 class RegisterUser {
@@ -36,7 +37,10 @@ class RegisterUser {
     const userEmailExists = await this.usersRepository.findByEmail(email);
 
     if (userEmailExists) {
-      throw new Error('User email already exists!');
+      throw new AppException({
+        message: 'User email already exists!',
+        statusCode: 409,
+      });
     }
 
     const userphoneExists = await this.usersRepository.findByPhone(
@@ -44,7 +48,10 @@ class RegisterUser {
     );
 
     if (userphoneExists) {
-      throw new Error('User phone number already exists!');
+      throw new AppException({
+        message: 'User phone number already exists!!',
+        statusCode: 409,
+      });
     }
 
     const passwordHashed = await this.hashProvider.generateHash(password);
@@ -52,7 +59,10 @@ class RegisterUser {
     const category = await this.categoriesRepository.findById(category_id);
 
     if (!category) {
-      throw new Error('Category does not exists!');
+      throw new AppException({
+        message: 'Category does not exists!',
+        statusCode: 404,
+      });
     }
 
     const city = await this.registerAdress.execute({

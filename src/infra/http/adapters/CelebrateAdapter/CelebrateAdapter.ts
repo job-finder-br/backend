@@ -5,6 +5,8 @@ type CelebrateResponse = {
   messages: {
     'any.required': string;
     'string.empty': string;
+    'string.min': string;
+    'string.max': string;
   };
 };
 
@@ -14,6 +16,8 @@ class CelebrateAdapter {
     messages: {
       'any.required': 'This Field is required!',
       'string.empty': 'Requires the field to be filled!',
+      'string.min': 'The {#label} has a minimum limit of {#limit} digits',
+      'string.max': 'The {#label} has a maximum limit of {#limit} digits',
     },
   });
 

@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/accounts/repositories';
+import { AppException } from '@shared/errors/AppException';
 
 type RecolocationStatus = {
   message: string;
@@ -18,7 +19,10 @@ class ChangeUserRecolocation {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
-      throw new Error('User does not exists!');
+      throw new AppException({
+        message: 'User does not exists!',
+        statusCode: 404,
+      });
     }
 
     user.is_recolocation = !user.is_recolocation;

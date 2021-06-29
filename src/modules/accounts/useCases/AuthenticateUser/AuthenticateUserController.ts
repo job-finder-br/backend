@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 
 import { BaseController, HttpRequest, HttpResponse } from '@core/.';
-import { ok, unauthorized } from '@core/infra/HttpResponse';
+import { ok, clientError } from '@core/infra/HttpResponse';
 
 import { AuthenticateUser } from './AuthenticateUser';
 
@@ -14,7 +14,7 @@ class AuthenticateUserController implements BaseController {
 
       return ok(user);
     } catch (error) {
-      return unauthorized(error);
+      return clientError(error);
     }
   }
 }

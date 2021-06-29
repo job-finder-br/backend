@@ -1,3 +1,5 @@
+import { AppException } from '@shared/errors/AppException';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type HttpResponse = {
   statusCode: number;
@@ -19,51 +21,10 @@ export const created = <T>(dto?: T): HttpResponse => ({
   body: dto,
 });
 
-export const clientError = (error: Error): HttpResponse => ({
-  statusCode: 400,
+export const clientError = (error: AppException): HttpResponse => ({
+  statusCode: error.statusCode,
   body: {
-    error: error.message,
-  },
-});
-
-export const unauthorized = (error: Error): HttpResponse => ({
-  statusCode: 401,
-  body: {
-    error: error.message,
-  },
-});
-
-export const forbidden = (error: Error): HttpResponse => ({
-  statusCode: 403,
-  body: {
-    error: error.message,
-  },
-});
-
-export const notFound = (error: Error): HttpResponse => ({
-  statusCode: 404,
-  body: {
-    error: error.message,
-  },
-});
-
-export const conflict = (error: Error): HttpResponse => ({
-  statusCode: 409,
-  body: {
-    error: error.message,
-  },
-});
-
-export const tooMany = (error: Error): HttpResponse => ({
-  statusCode: 429,
-  body: {
-    error: error.message,
-  },
-});
-
-export const fail = (error: Error): HttpResponse => ({
-  statusCode: 500,
-  body: {
-    error: error.message,
+    status: 'error',
+    message: error.message,
   },
 });
