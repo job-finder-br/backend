@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { JobWork } from '@modules/jobWorks/domain';
 import { IJobsWorkRepository } from '@modules/jobWorks/repositories';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 
 type IFilterRequest = {
   category_id: string;

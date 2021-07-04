@@ -3,6 +3,8 @@ import { getRepository, Repository } from 'typeorm';
 import { ICreateJobsWorks, JobWork } from '@modules/jobWorks/domain';
 
 import { IJobsWorkRepository } from '../IJobsWorkRepository';
+import { UserMapperSimple } from '@modules/accounts/mappers/UserMapperSimple';
+import { User } from '@modules/accounts/domain';
 
 class JobsWorksRepository implements IJobsWorkRepository {
   private repository: Repository<JobWork>;
@@ -12,12 +14,20 @@ class JobsWorksRepository implements IJobsWorkRepository {
   }
 
   async listByCategoryId(category_id: string): Promise<JobWork[]> {
-    return this.repository.find({
-      relations: ['category'],
+    const jobs = await this.repository.find({
+      relations: ['category', 'user'],
       where: {
         fk_category_id: category_id,
       },
     });
+
+    const jobsResponse = jobs.map(element => {
+      element.user = UserMapperSimple.render(element.user) as unknown as User;
+
+      return element;
+    });
+
+    return jobsResponse;
   }
 
   async delete(id: string): Promise<void> {
@@ -29,7 +39,17 @@ class JobsWorksRepository implements IJobsWorkRepository {
   }
 
   async list(): Promise<JobWork[]> {
-    return this.repository.find();
+    const jobs = await this.repository.find({
+      relations: ['user'],
+    });
+
+    const jobsResponse = jobs.map(element => {
+      element.user = UserMapperSimple.render(element.user) as unknown as User;
+
+      return element;
+    });
+
+    return jobsResponse;
   }
 
   async findById(id: string): Promise<JobWork | undefined> {

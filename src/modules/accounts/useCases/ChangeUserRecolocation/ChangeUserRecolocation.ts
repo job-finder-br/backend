@@ -2,10 +2,13 @@ import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { AppException } from '@shared/errors/AppException';
+import { UserMapperSimple } from '@modules/accounts/mappers/UserMapperSimple';
+import { IUserResponseMapper } from '@modules/accounts/dtos';
 
 type RecolocationStatus = {
   message: string;
   is_recolocation: boolean;
+  user: IUserResponseMapper;
 };
 
 @injectable()
@@ -32,6 +35,7 @@ class ChangeUserRecolocation {
     return {
       is_recolocation: user.is_recolocation,
       message: `The new recolocation status is: ${user.is_recolocation}`,
+      user: UserMapperSimple.render(user),
     };
   }
 }
