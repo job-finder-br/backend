@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
+import { IUserResponseMapper } from '@modules/accounts/dtos';
+import { UserMapperSimple } from '@modules/accounts/mappers/UserMapperSimple';
 import { IUsersRepository } from '@modules/accounts/repositories';
 import { AppException } from '@shared/errors/AppException';
-import { UserMapperSimple } from '@modules/accounts/mappers/UserMapperSimple';
-import { IUserResponseMapper } from '@modules/accounts/dtos';
 
 type RecolocationStatus = {
   message: string;

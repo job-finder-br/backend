@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { User } from '@modules/accounts/domain';
-import { IUsersRepository } from '@modules/accounts/repositories';
-import { UserMapper } from '@modules/accounts/mappers/UserMapper';
 import { IUserResponseMapper } from '@modules/accounts/dtos';
+import { UserMapper } from '@modules/accounts/mappers/UserMapper';
+import { IUsersRepository } from '@modules/accounts/repositories';
 
 @injectable()
 class ListUserRecolocation {

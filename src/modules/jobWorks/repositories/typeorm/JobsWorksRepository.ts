@@ -1,10 +1,10 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { User } from '@modules/accounts/domain';
+import { UserMapperSimple } from '@modules/accounts/mappers/UserMapperSimple';
 import { ICreateJobsWorks, JobWork } from '@modules/jobWorks/domain';
 
 import { IJobsWorkRepository } from '../IJobsWorkRepository';
-import { UserMapperSimple } from '@modules/accounts/mappers/UserMapperSimple';
-import { User } from '@modules/accounts/domain';
 
 class JobsWorksRepository implements IJobsWorkRepository {
   private repository: Repository<JobWork>;
@@ -22,9 +22,10 @@ class JobsWorksRepository implements IJobsWorkRepository {
     });
 
     const jobsResponse = jobs.map(element => {
-      element.user = UserMapperSimple.render(element.user) as unknown as User;
-
-      return element;
+      return {
+        ...element,
+        user: UserMapperSimple.render(element.user) as unknown as User,
+      };
     });
 
     return jobsResponse;
@@ -44,9 +45,10 @@ class JobsWorksRepository implements IJobsWorkRepository {
     });
 
     const jobsResponse = jobs.map(element => {
-      element.user = UserMapperSimple.render(element.user) as unknown as User;
-
-      return element;
+      return {
+        ...element,
+        user: UserMapperSimple.render(element.user) as unknown as User,
+      };
     });
 
     return jobsResponse;
