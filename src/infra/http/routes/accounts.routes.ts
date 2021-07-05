@@ -36,7 +36,9 @@ accountsRouter.get(
   ExpressAdapter.create(listUserRecolocationController.handle),
 );
 
-//Privates
+/**
+ * Privates
+ */
 
 accountsRouter.use(EnsureAuthenticated.handle);
 
