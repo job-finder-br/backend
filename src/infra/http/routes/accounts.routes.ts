@@ -31,6 +31,13 @@ accountsRouter.post(
   ExpressAdapter.create(registerUserController.handle),
 );
 
+accountsRouter.get(
+  '/recolocation',
+  ExpressAdapter.create(listUserRecolocationController.handle),
+);
+
+//Privates
+
 accountsRouter.use(EnsureAuthenticated.handle);
 
 accountsRouter.get('/', ExpressAdapter.create(listUserController.handle));
@@ -67,11 +74,6 @@ accountsRouter.delete(
 accountsRouter.patch(
   '/recolocation',
   ExpressAdapter.create(changeUserRecolocationController.handle),
-);
-
-accountsRouter.get(
-  '/recolocation',
-  ExpressAdapter.create(listUserRecolocationController.handle),
 );
 
 accountsRouter.patch(
