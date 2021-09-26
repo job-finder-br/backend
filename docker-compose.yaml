@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: jobfinder-api
+    restart: always
+    ports:
+      - '${API_PORT_EXTERNAL}:${API_PORT}'
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - network-agility
+
+networks:
+  network-agility:
+    driver: bridge
